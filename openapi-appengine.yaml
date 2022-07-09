@@ -60,6 +60,50 @@ paths:
           description: "Success"
           schema:
             type: string
+  "/api-docs/swagger-ui-bundle.js":
+    get:
+      tags:
+        - "API-DOCS"
+      description: "Get API Docs"
+      operationId: "getapidocs"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: string
+  "/api-docs/swagger-ui-init.js":
+    get:
+      tags:
+        - "API-DOCS"
+      description: "Get API Docs"
+      operationId: "getapidocs"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: string
+  "/api-docs/swagger-ui-standalone-preset.js":
+    get:
+      tags:
+        - "API-DOCS"
+      description: "Get API Docs"
+      operationId: "getapidocs"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: string
+  "/api-docs/swagger-ui.css":
+    get:
+      tags:
+        - "API-DOCS"
+      description: "Get API Docs"
+      operationId: "getapidocs"
+      responses:
+        200:
+          description: "Success"
+          schema:
+            type: string
   "/admins/userRole":
     patch:
       tags:
