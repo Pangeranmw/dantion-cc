@@ -11,7 +11,7 @@ const { BigQuery } = bigQueryPackage;
 
 export const bigqueryClient = new BigQuery({
 	keyFilename: "dangerdetection-key.json",
-	projectId: "dangerdetection",
+	projectId: "danger-detection",
 });
 
 import express from 'express';
