@@ -13,7 +13,7 @@ export const userAll = async (req, res) => {
             message: "Gagal mengambil user. Mohon isi data dengan benar"
         });
     }
-    const queryAdminExist = `SELECT * FROM \`dangerdetection.dantion_big_query.admins\` WHERE id=@id`;
+    const queryAdminExist = `SELECT * FROM \`danger-detection.dantion.admins\` WHERE id=@id`;
     let options = {
         query: queryAdminExist,
         location: 'asia-southeast2',
@@ -27,7 +27,7 @@ export const userAll = async (req, res) => {
         });
     }
 
-    const queryUserAll = `SELECT * FROM \`dangerdetection.dantion_big_query.users\``;
+    const queryUserAll = `SELECT * FROM \`danger-detection.dantion.users\``;
     options = {
         query: queryUserAll,
         location: 'asia-southeast2'
@@ -54,7 +54,7 @@ export const userRegister = async (req, res) => {
         });
     }
 
-    const queryUserExist = `SELECT COUNT(email) AS emailCount FROM \`dangerdetection.dantion_big_query.users\` WHERE email=@email`;
+    const queryUserExist = `SELECT COUNT(email) AS emailCount FROM \`danger-detection.dantion.users\` WHERE email=@email`;
     let options = {
         query: queryUserExist,
         location: 'asia-southeast2',
@@ -70,12 +70,12 @@ export const userRegister = async (req, res) => {
     }
 
     const id = `U-${uuidv4()}`;
-    const photo = "https://storage.googleapis.com/dangerdetection.appspot.com/users/default_profile.png";
+    const photo = "https://storage.googleapis.com/danger-detection.appspot.com/users/default_profile.png";
     const hashPass = hashPassword(password);
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
 
-    const queryNewUser = `INSERT \`dangerdetection.dantion_big_query.users\`
+    const queryNewUser = `INSERT \`danger-detection.dantion.users\`
     (id, name, address, number, parentNumber, email, password, role, photo, createdAt, updatedAt) 
     VALUES (@id, @name, @address, @number, @parentNumber, @email, @password, @role, @photo, @createdAt, @updatedAt)`;
 
@@ -115,7 +115,7 @@ export const userLogin = async (req, res) => {
         });
     }
 
-    const queryUserExist = `SELECT * EXCEPT (createdAt,updatedAt) FROM \`dangerdetection.dantion_big_query.users\` WHERE email=@email`;
+    const queryUserExist = `SELECT * EXCEPT (createdAt,updatedAt) FROM \`danger-detection.dantion.users\` WHERE email=@email`;
     let options = {
         query: queryUserExist,
         location: 'asia-southeast2',
@@ -163,7 +163,7 @@ export const userLogin = async (req, res) => {
 export const userDetail = async (req, res) => {
     const { id } = req.params
 
-    const queryUserExist = `SELECT * FROM \`dangerdetection.dantion_big_query.users\` WHERE id=@id`;
+    const queryUserExist = `SELECT * FROM \`danger-detection.dantion.users\` WHERE id=@id`;
     let options = {
         query: queryUserExist,
         location: 'asia-southeast2',
@@ -198,7 +198,7 @@ export const userUpdatePassword = async (req, res) => {
 			message: "Gagal memperbarui user. Mohon isi data dengan benar",
 		});
 	}
-	const queryUserExist = `SELECT id, password FROM \`dangerdetection.dantion_big_query.users\` WHERE id=@id`;
+	const queryUserExist = `SELECT id, password FROM \`danger-detection.dantion.users\` WHERE id=@id`;
 	let options = {
 		query: queryUserExist,
 		location: "asia-southeast2",
@@ -219,7 +219,7 @@ export const userUpdatePassword = async (req, res) => {
         });
     }
 
-	const queryUpdate = `UPDATE \`dangerdetection.dantion_big_query.users\`
+	const queryUpdate = `UPDATE \`danger-detection.dantion.users\`
     SET password=@password, updatedAt=@updatedAt
     WHERE id=@id`;
 	options = {
@@ -248,7 +248,7 @@ export const userUpdate = async (req, res) => {
             message: "Gagal memperbarui user. Mohon isi data dengan benar"
         });
     }
-    const queryUserExist = `SELECT * FROM \`dangerdetection.dantion_big_query.users\` WHERE id=@id`;
+    const queryUserExist = `SELECT * FROM \`danger-detection.dantion.users\` WHERE id=@id`;
     let options = {
         query: queryUserExist,
         location: 'asia-southeast2',
@@ -261,7 +261,7 @@ export const userUpdate = async (req, res) => {
             message: "User tidak ditemukan"
         });
     }
-    const queryUpdate = `UPDATE \`dangerdetection.dantion_big_query.users\`
+    const queryUpdate = `UPDATE \`danger-detection.dantion.users\`
     SET name=@name, address=@address, number=@number, parentNumber=@parentNumber, email=@email, updatedAt=@updatedAt
     WHERE id=@id`;
     options = {
@@ -295,7 +295,7 @@ export const userUpdatePhoto = async (req, res) => {
 			message: "Gagal memperbarui user. Mohon isi data dengan benar",
 		});
 	}
-	const queryUserExist = `SELECT * FROM \`dangerdetection.dantion_big_query.users\` WHERE id=@id`;
+	const queryUserExist = `SELECT * FROM \`danger-detection.dantion.users\` WHERE id=@id`;
 	let options = {
 		query: queryUserExist,
 		location: "asia-southeast2",
@@ -331,7 +331,7 @@ export const userUpdatePhoto = async (req, res) => {
 		blobStream.end(file.data);
 	}
 
-	const queryUpdate = `UPDATE \`dangerdetection.dantion_big_query.users\`
+	const queryUpdate = `UPDATE \`danger-detection.dantion.users\`
     SET photo=@photo, updatedAt=@updatedAt
     WHERE id=@id`;
 	options = {

@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export const placeAll = async (req, res) => {
-    const queryDetectExist = `SELECT * FROM \`dangerdetection.dantion_big_query.places\``;
+    const queryDetectExist = `SELECT * FROM \`danger-detection.dantion.places\``;
     let options = {
         query: queryDetectExist,
         location: 'asia-southeast2'
@@ -33,7 +33,7 @@ export const placeAdd = async (req, res) => {
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
 
-    const queryNewPlace = `INSERT \`dangerdetection.dantion_big_query.places\`
+    const queryNewPlace = `INSERT \`danger-detection.dantion.places\`
     (id, lat, lon, radius, type, createdAt, updatedAt) 
     VALUES (@id, @lat, @lon, @radius, @type, @createdAt, @updatedAt)`;
 
@@ -62,7 +62,7 @@ export const placeAdd = async (req, res) => {
 export const placeDetail = async (req, res) => {
     const { id } = req.params
 
-    const queryPlaceExist = `SELECT * FROM \`dangerdetection.dantion_big_query.places\` WHERE id=@id`;
+    const queryPlaceExist = `SELECT * FROM \`danger-detection.dantion.places\` WHERE id=@id`;
     let options = {
         query: queryPlaceExist,
         location: 'asia-southeast2',
@@ -96,7 +96,7 @@ export const placeUpdate = async (req, res) => {
     }
     let latFloat = parseFloat(lat);
     let lonFloat = parseFloat(lon);
-    const queryPlaceExist = `SELECT * FROM \`dangerdetection.dantion_big_query.places\` WHERE id=@id`;
+    const queryPlaceExist = `SELECT * FROM \`danger-detection.dantion.places\` WHERE id=@id`;
     let options = {
         query: queryPlaceExist,
         location: 'asia-southeast2',
@@ -112,7 +112,7 @@ export const placeUpdate = async (req, res) => {
 
     const updatedAt = new Date().toISOString();
 
-    const queryUpdate = `UPDATE \`dangerdetection.dantion_big_query.places\`
+    const queryUpdate = `UPDATE \`danger-detection.dantion.places\`
     SET lat=@lat, lon=@lon, radius=@radius, type=@type, updatedAt=@updatedAt WHERE id=@id`;
     options = {
 			query: queryUpdate,
@@ -144,7 +144,7 @@ export const placeDelete = async (req, res) => {
         });
     }
 
-    const queryPlaceExist = `SELECT * FROM \`dangerdetection.dantion_big_query.places\` WHERE id=@id`;
+    const queryPlaceExist = `SELECT * FROM \`danger-detection.dantion.places\` WHERE id=@id`;
     let options = {
         query: queryPlaceExist,
         location: 'asia-southeast2',
@@ -158,7 +158,7 @@ export const placeDelete = async (req, res) => {
         });
     }
     
-    const queryDeletePlace = `DELETE \`dangerdetection.dantion_big_query.places\` WHERE id=@id`;
+    const queryDeletePlace = `DELETE \`danger-detection.dantion.places\` WHERE id=@id`;
     options = {
         query: queryDeletePlace,
         location: 'asia-southeast2',

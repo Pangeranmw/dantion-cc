@@ -12,7 +12,7 @@ export const adminLogin = async (req, res) => {
         });
     }
 
-    const queryAdminExist = `SELECT id, name, email, password FROM \`dangerdetection.dantion_big_query.admins\` WHERE email=@email`;
+    const queryAdminExist = `SELECT id, name, email, password FROM \`danger-detection.dantion.admins\` WHERE email=@email`;
     let options = {
         query: queryAdminExist,
         location: 'asia-southeast2',
@@ -59,7 +59,7 @@ export const adminUpdateUserRole = async (req, res) => {
 		});
 	}
 
-	const queryUserExist = `SELECT * FROM \`dangerdetection.dantion_big_query.users\` WHERE id=@id`;
+	const queryUserExist = `SELECT * FROM \`danger-detection.dantion.users\` WHERE id=@id`;
     let options = {
         query: queryUserExist,
         location: 'asia-southeast2',
@@ -73,7 +73,7 @@ export const adminUpdateUserRole = async (req, res) => {
 		});
 	}
 	
-    const queryUpdate = `UPDATE \`dangerdetection.dantion_big_query.users\`
+    const queryUpdate = `UPDATE \`danger-detection.dantion.users\`
     SET role=@role, updatedAt=@updatedAt WHERE id=@id`;
     options = {
         query: queryUpdate,

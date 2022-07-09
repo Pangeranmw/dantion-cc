@@ -9,9 +9,9 @@ export const detectionAll = async (req, res) => {
     const queryDetectExist = `
     SELECT detections.lat, detections.lon, detections.recordUrl, detections.type, detections.status, detections.city,detections.updatedAt, 
     users.name, users.address, users.number, users.parentNumber, users.photo, validator.name AS validatorName, validator.photo AS validatorPhoto
-    FROM \`dangerdetection.dantion_big_query.detections\` AS detections
-    JOIN \`dangerdetection.dantion_big_query.users\` AS users ON detections.userId = users.id
-    LEFT OUTER JOIN \`dangerdetection.dantion_big_query.users\` AS validator ON detections.validatorId = validator.id
+    FROM \`danger-detection.dantion.detections\` AS detections
+    JOIN \`danger-detection.dantion.users\` AS users ON detections.userId = users.id
+    LEFT OUTER JOIN \`danger-detection.dantion.users\` AS validator ON detections.validatorId = validator.id
     ORDER BY detections.updatedAt DESC
     `;
     let options = {
@@ -28,9 +28,9 @@ export const detectionAll = async (req, res) => {
 }
 export const getDetectionStatistic = async (req, res) => {
 	const queryStats = `
-    SELECT COUNT(type) AS kecelakaan, (SELECT COUNT(type) FROM \`dangerdetection.dantion_big_query.detections\` WHERE type = 'kejahatan') AS kejahatan,
-    (SELECT COUNT(type) FROM \`dangerdetection.dantion_big_query.detections\` WHERE type = 'kebakaran') AS kebakaran
-    FROM \`dangerdetection.dantion_big_query.detections\` WHERE type = 'kecelakaan'
+    SELECT COUNT(type) AS kecelakaan, (SELECT COUNT(type) FROM \`danger-detection.dantion.detections\` WHERE type = 'kejahatan') AS kejahatan,
+    (SELECT COUNT(type) FROM \`danger-detection.dantion.detections\` WHERE type = 'kebakaran') AS kebakaran
+    FROM \`danger-detection.dantion.detections\` WHERE type = 'kecelakaan'
     `;
 	let options = {
 		query: queryStats,
@@ -67,7 +67,7 @@ export const detectionAdd = async (req, res) => {
 		});
 	}
 	
-    const queryUserExist = `SELECT COUNT(email) AS emailCount FROM \`dangerdetection.dantion_big_query.users\` WHERE id=@id`;
+    const queryUserExist = `SELECT COUNT(email) AS emailCount FROM \`danger-detection.dantion.users\` WHERE id=@id`;
     let options = {
         query: queryUserExist,
         location: 'asia-southeast2',
@@ -95,7 +95,7 @@ export const detectionAdd = async (req, res) => {
         const updatedAt = createdAt;
         const recordUrl = `https://storage.googleapis.com/${bucket.name}/records/${recordName}`;
 
-        const queryNewDetection = `INSERT \`dangerdetection.dantion_big_query.detections\`
+        const queryNewDetection = `INSERT \`danger-detection.dantion.detections\`
         (id, lat, lon, recordUrl, type, status, userId, createdAt, updatedAt, city)
         VALUES (@id, @lat, @lon, @recordUrl, @type, @status, @userId, @createdAt, @updatedAt, @city)`;
 
@@ -131,9 +131,9 @@ export const detectionDetail = async (req, res) => {
     const queryDetectExist = `
     SELECT detections.lat, detections.lon, detections.recordUrl, detections.type, detections.status, detections.city,detections.updatedAt, 
     users.name, users.address, users.number, users.parentNumber, users.photo, validator.name AS validatorName, validator.photo AS validatorPhoto
-    FROM \`dangerdetection.dantion_big_query.detections\` AS detections
-    JOIN \`dangerdetection.dantion_big_query.users\` AS users ON detections.userId = users.id
-    LEFT OUTER JOIN \`dangerdetection.dantion_big_query.users\` AS validator ON detections.validatorId = validator.id
+    FROM \`danger-detection.dantion.detections\` AS detections
+    JOIN \`danger-detection.dantion.users\` AS users ON detections.userId = users.id
+    LEFT OUTER JOIN \`danger-detection.dantion.users\` AS validator ON detections.validatorId = validator.id
     WHERE detections.id=@id
     ORDER BY detections.updatedAt DESC
     `;
@@ -169,7 +169,7 @@ export const detectionUpdate = async (req, res) => {
         });
     }
 
-    const queryDetectExist = `SELECT * FROM \`dangerdetection.dantion_big_query.detections\` WHERE id=@id`;
+    const queryDetectExist = `SELECT * FROM \`danger-detection.dantion.detections\` WHERE id=@id`;
     let options = {
         query: queryDetectExist,
         location: 'asia-southeast2',
@@ -183,7 +183,7 @@ export const detectionUpdate = async (req, res) => {
         });
     }
     
-    const queryUserExist = `SELECT role, id FROM \`dangerdetection.dantion_big_query.users\` WHERE id=@id`;
+    const queryUserExist = `SELECT role, id FROM \`danger-detection.dantion.users\` WHERE id=@id`;
     options = {
         query: queryUserExist,
         location: 'asia-southeast2',
@@ -202,7 +202,7 @@ export const detectionUpdate = async (req, res) => {
 
     const updatedAt = new Date().toISOString();
 
-    const queryUpdate = `UPDATE \`dangerdetection.dantion_big_query.detections\`
+    const queryUpdate = `UPDATE \`danger-detection.dantion.detections\`
     SET status=@status, updatedAt=@updatedAt, validatorId=@validatorId WHERE id=@id`;
     options = {
         query: queryUpdate,
@@ -231,7 +231,7 @@ export const detectionDelete = async (req, res) => {
         });
     }
     
-    const queryDetectExist = `SELECT * FROM \`dangerdetection.dantion_big_query.detections\` WHERE id=@id`;
+    const queryDetectExist = `SELECT * FROM \`danger-detection.dantion.detections\` WHERE id=@id`;
     let options = {
         query: queryDetectExist,
         location: 'asia-southeast2',
@@ -256,7 +256,7 @@ export const detectionDelete = async (req, res) => {
     //     }
     // });
 
-    const queryDeleteDetection = `DELETE \`dangerdetection.dantion_big_query.detections\` WHERE id=@id`;
+    const queryDeleteDetection = `DELETE \`danger-detection.dantion.detections\` WHERE id=@id`;
     options = {
         query: queryDeleteDetection,
         location: 'asia-southeast2',

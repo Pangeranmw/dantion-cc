@@ -15,7 +15,7 @@ export const betaForm = async (req, res) => {
     const id = `BR-${uuidv4()}`;
     const isSent = false;
 
-    const queryNewBeta = `INSERT \`dangerdetection.dantion_big_query.betaRequest\`
+    const queryNewBeta = `INSERT \`danger-detection.dantion.betaRequest\`
     (id, name, email, city, isSent) 
     VALUES (@id, @name, @email, @city, @isSent)`;
 

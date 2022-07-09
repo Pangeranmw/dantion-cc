@@ -2,7 +2,7 @@ runtime: nodejs
 env: flex
 
 env_variables:
-  GCLOUD_STORAGE_BUCKET: dangerdetection.appspot.com
+  GCLOUD_STORAGE_BUCKET: danger-detection.appspot.com
 endpoints_api_service:
-  name: dangerdetection.appspot.com
+  name: danger-detection.appspot.com
   rollout_strategy: managed
