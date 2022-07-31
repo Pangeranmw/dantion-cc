@@ -145,7 +145,7 @@ export const detectionDetail = async (req, res) => {
     const { id } = req.params
 
     const queryDetectExist = `
-    SELECT detections.lat, detections.lon, detections.recordUrl, detections.type, detections.status, detections.city,detections.updatedAt, users.id,
+    SELECT detections.id, detections.lat, detections.lon, detections.recordUrl, detections.type, detections.status, detections.city,detections.updatedAt, users.id AS userId,
     users.name, users.address, users.number, users.parentNumber, users.photo, validator.name AS validatorName, validator.photo AS validatorPhoto
     FROM \`danger-detection.dantion.detections\` AS detections
     JOIN \`danger-detection.dantion.users\` AS users ON detections.userId = users.id
