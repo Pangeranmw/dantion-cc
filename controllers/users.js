@@ -4,6 +4,10 @@ import { v4 as uuidv4 } from 'uuid';
 import storagePackage from '@google-cloud/storage';
 const { Storage } = storagePackage;
 import { bigqueryClient } from '../index.js';
+import { firebaseApp } from "../initFirebase.js";
+
+const db = firebaseApp.database();
+const ref = db.ref("users");
 
 export const userAll = async (req, res) => {
     const {id} = req.query
@@ -96,6 +100,20 @@ export const userRegister = async (req, res) => {
             updatedAt: updatedAt
         }
     };
+
+    const usersRef = ref.child(id);
+    usersRef.set({
+        name: name,
+        address: address,
+        number: number,
+        parentNumber: parentNumber,
+        email: email,
+        password: hashPass,
+        role: role,
+        photo: photo,
+        createdAt: createdAt,
+        updatedAt: updatedAt,
+    });
 
     await bigqueryClient.query(options);
 
@@ -233,6 +251,13 @@ export const userUpdatePassword = async (req, res) => {
 	};
 	await bigqueryClient.query(options);
 
+    const usersRef = ref.child(id);
+    usersRef.update({
+        id: id,
+        password: hashPassword(newPassword),
+        updatedAt: new Date().toISOString(),
+    });
+
 	return res.json({
 		error: false,
 		message: "Kata Sandi Berhasil diperbarui",
@@ -344,7 +369,12 @@ export const userUpdatePhoto = async (req, res) => {
 		},
 	};
 	await bigqueryClient.query(options);
-
+    const usersRef = ref.child(id);
+    usersRef.update({
+        id: id,
+        photo: photoUrl,
+        updatedAt: new Date().toISOString(),
+    });
 	return res.json({
 		error: false,
 		message: "Foto User berhasil diupdate",

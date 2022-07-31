@@ -1,13 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
-// import fs from 'fs';
 import storagePackage from '@google-cloud/storage';
 const { Storage } = storagePackage;
-import { bigqueryClient } from '../index.js';
+import { bigqueryClient } from "../index.js";
+import { firebaseApp } from "../initFirebase.js";
+const db = firebaseApp.database();
+const ref = db.ref('detections');
 
 export const detectionAll = async (req, res) => {
 
     const queryDetectExist = `
-    SELECT detections.lat, detections.lon, detections.recordUrl, detections.type, detections.status, detections.city,detections.updatedAt, 
+    SELECT detections.lat, detections.lon, detections.recordUrl, detections.type, detections.status, detections.city,detections.updatedAt, users.id,
     users.name, users.address, users.number, users.parentNumber, users.photo, validator.name AS validatorName, validator.photo AS validatorPhoto
     FROM \`danger-detection.dantion.detections\` AS detections
     JOIN \`danger-detection.dantion.users\` AS users ON detections.userId = users.id
@@ -116,6 +118,20 @@ export const detectionAdd = async (req, res) => {
             },
         };
 
+        const detectionsRef = ref.child(id);
+        detectionsRef.set({
+            lat: latFloat,
+            lon: lonFloat,
+            recordUrl: recordUrl,
+            type: type,
+            status: status,
+            userId: userId,
+            city: city,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            validatorId: "",
+        });
+
         await bigqueryClient.query(options);
         return res.json({
             error: false,
@@ -129,7 +145,7 @@ export const detectionDetail = async (req, res) => {
     const { id } = req.params
 
     const queryDetectExist = `
-    SELECT detections.lat, detections.lon, detections.recordUrl, detections.type, detections.status, detections.city,detections.updatedAt, 
+    SELECT detections.lat, detections.lon, detections.recordUrl, detections.type, detections.status, detections.city,detections.updatedAt, users.id,
     users.name, users.address, users.number, users.parentNumber, users.photo, validator.name AS validatorName, validator.photo AS validatorPhoto
     FROM \`danger-detection.dantion.detections\` AS detections
     JOIN \`danger-detection.dantion.users\` AS users ON detections.userId = users.id
@@ -216,6 +232,12 @@ export const detectionUpdate = async (req, res) => {
     };
     await bigqueryClient.query(options);
 
+    const detectionsRef = ref.child(id);
+    detectionsRef.update({
+        status: status,
+        validatorId: validatorId,
+        updatedAt: updatedAt,
+    });
     return res.json({
         error: false,
         message: "Data berhasil diupdate"
@@ -264,6 +286,8 @@ export const detectionDelete = async (req, res) => {
     };
     await bigqueryClient.query(options);
 
+    const detectionsRef = ref.child(id);
+    detectionsRef.set({});
     return res.json({
         error: false,
         message: "Data berhasil dihapus"

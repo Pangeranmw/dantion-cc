@@ -5,9 +5,6 @@ const cors = require("cors");
 const YAML = require("yamljs");
 import bigQueryPackage from '@google-cloud/bigquery';
 const { BigQuery } = bigQueryPackage;
-// const { BigQuery } = require('@google-cloud/bigquery');
-
-// const bigQuery = BigQuery;
 
 export const bigqueryClient = new BigQuery({
 	keyFilename: "dangerdetection-key.json",
