@@ -14,9 +14,9 @@ import {
 const router = express.Router();
 
 router.get('/', userAll);
-router.get('/:id', authenticateToken, userDetail);
 router.post('/register', userRegister);
 router.post('/login', userLogin);
+router.get('/:id', authenticateToken, userDetail);
 router.patch('/', authenticateToken, userUpdate);
 router.patch("/photo", authenticateToken, userUpdatePhoto);
 router.patch("/password", authenticateToken, userUpdatePassword);

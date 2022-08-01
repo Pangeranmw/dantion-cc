@@ -378,5 +378,6 @@ export const userUpdatePhoto = async (req, res) => {
 	return res.json({
 		error: false,
 		message: "Foto User berhasil diupdate",
+		photo: photoUrl,
 	});
 };

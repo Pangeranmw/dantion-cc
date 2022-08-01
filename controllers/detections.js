@@ -198,7 +198,6 @@ export const detectionUpdate = async (req, res) => {
             message: "Data tidak ditemukan",
         });
     }
-    
     const queryUserExist = `SELECT role, id FROM \`danger-detection.dantion.users\` WHERE id=@id`;
     options = {
         query: queryUserExist,
@@ -266,17 +265,6 @@ export const detectionDelete = async (req, res) => {
             message: "Data tidak ditemukan"
         });
     }
-
-    // const detectExist = rDetectExist[0];
-    // const recordName = detectExist.recordUrl.split('/').slice(3).join('/');
-    // fs.unlink(`./${recordName}`, (err) => {
-    //     if(err) {
-    //         res.status(400).json({
-    //             error: true,
-    //             message: "Tidak dapat menghapus file"
-    //         });
-    //     }
-    // });
 
     const queryDeleteDetection = `DELETE \`danger-detection.dantion.detections\` WHERE id=@id`;
     options = {
